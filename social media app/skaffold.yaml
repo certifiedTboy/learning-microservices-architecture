@@ -2,14 +2,14 @@ apiVersion: skaffold/v2alpha3
 kind: Config
 deploy:
   kubectl:
-    manifest:
+    manifests:
       - ./infra/k8s/*
 build:
   local:
     push: false
   artifacts:
     - image: certifiedtboy/clients
-      context: client
+      context: clients
       docker:
         dockerfile: Dockerfile
       sync:
@@ -24,7 +24,7 @@ build:
         manual:
           - src: "*.js"
             dest: .
-   - image: certifiedtboy/event-bus
+    - image: certifiedtboy/event-bus
       context: event-bus
       docker:
         dockerfile: Dockerfile
