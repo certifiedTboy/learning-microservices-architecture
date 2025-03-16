@@ -67,6 +67,10 @@ Describe pod
 
 restart a deployment
 
+### `kubectl get services -n ingress-nginx`
+
+get all services running in a namespace
+
 ### `skaffold dev (in the root directory of the project)`
 
 run skaffold
