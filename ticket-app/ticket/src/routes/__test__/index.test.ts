@@ -1,6 +1,8 @@
 import request from "supertest";
 import { app } from "../../app";
 
+jest.mock("../../nats-wrapper");
+
 const createTicket = () => {
   const cookie = (global as any).signin();
   const title = "Concert";
