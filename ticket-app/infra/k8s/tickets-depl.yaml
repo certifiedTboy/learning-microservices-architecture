@@ -16,10 +16,6 @@ spec:
         - name: tickets
           image: certifiedtboy/tickets
           env: 
-            - name: NATS_CLIENT_ID
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
             - name: NATS_URI
               value: 'nats://nats-srv:4222'
             - name: NATS_CLUSTER_ID
@@ -31,6 +27,10 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY 
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
 ---
 apiVersion: v1
 kind: Service
