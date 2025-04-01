@@ -1,7 +1,6 @@
 import { natsWrapper } from "../nats-wrapper";
-import { TicketCreatedListener } from "../events/listeners/ticket-created-listener";
-import { TicketUpdatedListener } from "../events/listeners/ticket-updated-listener";
-import { PaymentCreatedListener } from "../events/listeners/payment-created-listener";
+import { OrderCreatedListener } from "../events/listeners/order-created-listener";
+import { OrderCancelledListener } from "../events/listeners/order-cancelled-listeners";
 
 const connectListeners = async () => {
   if (!process.env.JWT_KEY) {
@@ -35,9 +34,8 @@ const connectListeners = async () => {
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
 
-    new TicketCreatedListener(natsWrapper.client).listen();
-    new TicketUpdatedListener(natsWrapper.client).listen();
-    new PaymentCreatedListener(natsWrapper.client).listen();
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
   } catch (err) {
     console.log(err);
   }
