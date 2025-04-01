@@ -8,10 +8,9 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
-    await expirationQueue.add(
-      { orderId: data.id },
-      { delay: +data.expiresAt - new Date().getTime() }
-    );
+    const delay = new Date(data.expiresAt).getTime() - new Date().getTime();
+
+    await expirationQueue.add({ orderId: data.id }, { delay });
 
     msg.ack();
   }
